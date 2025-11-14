@@ -1,0 +1,125 @@
+@rootURL = http://localhost:3000
+@apiEP = {{rootURL}}/api/v1
+@adminEP = {{apiEP}}/admin
+@authEP = {{apiEP}}/auth
+@userEP = {{apiEP}}/users
+@bookEP = {{apiEP}}/books
+@borrowEP = {{apiEP}}/borrows
+@reviewEP = {{apiEP}}/reviews
+@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFzZGYyQHNkZmMuY29tIiwiaWF0IjoxNzYzMDk4NzM2LCJleHAiOjE3NjMxODUxMzZ9.GnP6SlXCiRwijsdsVhxB4AHfMaAWu1LFwV6OryGQH8A
+
+###################  Authentication #######################
+
+### Register -public
+POST {{authEP}}/register
+Content-Type: application/json
+
+{
+    "fName": "prem",
+    "lName": "presfdsm",
+    "phone": "34567",
+    "email": "asdf2@sdfc.com",
+    "password": "sdfdsf"
+}
+
+### Login -public
+POST {{authEP}}/login
+Content-Type: application/json
+
+{
+    "email" : "asdf2@sdfc.com",
+    "password" : "sdfdsf"
+}
+
+### renew jwt -any
+GET {{authEP}}/renew-jwt
+Authorization: {{authToken}}
+
+
+######################   USERS   ############################
+
+### Get my details
+GET {{authEP}}/users
+Authorization: {{authToken}}
+
+
+### Get all users
+GET {{userEP}}
+Authorization: {{authToken}}
+
+
+######################   BOOKS   ############################
+
+### get all active books -public or any
+GET {{bookEP}}/public
+
+### Get all books (active and inactives) -admin
+GET {{bookEP}}
+Authorization: {{authToken}}
+
+### create a book -admin
+POST {{bookEP}}
+Authorization: {{authToken}}
+Content-Type: application/json
+
+{
+    "title": "BOOK_TITLE3",
+    "author": "AUTHOR",
+    "isbn": "ISBN3",
+    "publishedYear": 1990,
+    "thumbnail": "THUMBNAIL",
+    "description": "BOOK_DESCRIPTION"
+}
+
+### make book active -admin
+PATCH {{bookEP}}/69151eee2ac6ad0fb3e3e5e6
+Authorization: {{authToken}}
+Content-Type: application/json
+
+{
+    "status" : "active"
+}
+
+######################   BORROWS   #########################
+
+### borrow book -any
+POST {{borrowEP}}/69151eee2ac6ad0fb3e3e5e6
+Authorization: {{authToken}}
+
+### get my borrows -any
+GET {{borrowEP}}
+Authorization: {{authToken}}
+
+### return book-update borrow -any
+PATCH {{borrowEP}}/return/69152e0eed05842c273b6a0e
+Authorization: {{authToken}}
+
+######################   REVIEW   ############################
+
+### Leave a review
+POST {{reviewEP}}/69151f242ac6ad0fb3e3e5ec
+Authorization: {{authToken}}
+Content-Type: application/json
+
+{
+    "title" : "REVIEW NEW REVIEW2",
+    "description" : "REVIEW 1 Description",
+    "rating" : 1
+}
+
+### approve a review-make review active
+PATCH {{reviewEP}}/69169dc3a2177a4e92eb9062
+Authorization: {{authToken}}
+Content-Type: application/json
+
+{
+    "status" : "active"
+}
+
+### get my reviews (active and inactive?)
+GET {{reviewEP}}
+Authorization: {{authToken}}
+
+### get all reviews-admin
+GET {{reviewEP}}/all
+Authorization: {{authToken}}
