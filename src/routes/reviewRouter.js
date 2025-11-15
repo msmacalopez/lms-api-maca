@@ -14,6 +14,7 @@ const router = express.Router();
 //TODO: add validation
 router.post("/:borrowId", auth, createReview);
 
+//TODO: add validation
 //admin approve review - status: active
 router.patch("/:reviewId", auth, isAdmin, approveReview);
 

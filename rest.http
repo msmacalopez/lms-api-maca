@@ -6,7 +6,7 @@
 @bookEP = {{apiEP}}/books
 @borrowEP = {{apiEP}}/borrows
 @reviewEP = {{apiEP}}/reviews
-@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFzZGYyQHNkZmMuY29tIiwiaWF0IjoxNzYzMDk4NzM2LCJleHAiOjE3NjMxODUxMzZ9.GnP6SlXCiRwijsdsVhxB4AHfMaAWu1LFwV6OryGQH8A
+@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFzZGYyQHNkZmMuY29tIiwiaWF0IjoxNzYzMTg5NTYxLCJleHAiOjE3NjMyNzU5NjF9.Z67MoZQ_2RDTdqt8oYVBKQlhUTy0I76199cWuiK-PwQ
 
 ###################  Authentication #######################
 
@@ -15,11 +15,11 @@ POST {{authEP}}/register
 Content-Type: application/json
 
 {
-    "fName": "prem",
-    "lName": "presfdsm",
+    "fName": "example",
+    "lName": "example",
     "phone": "34567",
-    "email": "asdf2@sdfc.com",
-    "password": "sdfdsf"
+    "email": "admin@test.com",
+    "password": "admin@test.com"
 }
 
 ### Login -public
@@ -63,16 +63,16 @@ Authorization: {{authToken}}
 Content-Type: application/json
 
 {
-    "title": "BOOK_TITLE3",
+    "title": "BOOK_TITLE5",
     "author": "AUTHOR",
-    "isbn": "ISBN3",
+    "isbn": "ISBN5",
     "publishedYear": 1990,
     "thumbnail": "THUMBNAIL",
     "description": "BOOK_DESCRIPTION"
 }
 
 ### make book active -admin
-PATCH {{bookEP}}/69151eee2ac6ad0fb3e3e5e6
+PATCH {{bookEP}}/6917f8d9490124ff2fd1bcd1
 Authorization: {{authToken}}
 Content-Type: application/json
 
@@ -90,25 +90,29 @@ Authorization: {{authToken}}
 GET {{borrowEP}}
 Authorization: {{authToken}}
 
-### return book-update borrow -any
-PATCH {{borrowEP}}/return/69152e0eed05842c273b6a0e
+### get all borrows -admin
+GET {{borrowEP}}/all
+Authorization: {{authToken}}
+
+### return a borrow-update borrow -any
+PATCH {{borrowEP}}/return/691822e025b558baf5880f07
 Authorization: {{authToken}}
 
 ######################   REVIEW   ############################
 
 ### Leave a review
-POST {{reviewEP}}/69151f242ac6ad0fb3e3e5ec
+POST {{reviewEP}}/691822e025b558baf5880f07
 Authorization: {{authToken}}
 Content-Type: application/json
 
 {
-    "title" : "REVIEW NEW REVIEW2",
-    "description" : "REVIEW 1 Description",
+    "title" : "REVIEW 1",
+    "description" : "Description",
     "rating" : 1
 }
 
 ### approve a review-make review active
-PATCH {{reviewEP}}/69169dc3a2177a4e92eb9062
+PATCH {{reviewEP}}/6918230025b558baf5880f10
 Authorization: {{authToken}}
 Content-Type: application/json
 

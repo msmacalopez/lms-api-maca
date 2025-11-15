@@ -43,7 +43,7 @@ const bookSchema = new mongoose.Schema(
     },
     averageRating: {
       type: Number,
-      default: null,
+      default: 0,
     },
     counterReviews: {
       type: Number,

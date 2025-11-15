@@ -6,8 +6,8 @@ export const insertBorrow = (obj) => {
 };
 
 //Read all for the admin || public
-export const getAllBorrows = (f) => {
-  return BorrowModel.find(f);
+export const getAllBorrows = (filter) => {
+  return BorrowModel.find(filter);
 };
 
 // get borrow by Id
@@ -17,7 +17,7 @@ export const getABorrowById = (_id) => {
 
 // update borrow by id
 export const updateABorrowById = (_id, obj) => {
-  return BorrowModel.findByIdAndUpdate(_id, obj);
+  return BorrowModel.findByIdAndUpdate(_id, obj, { new: true });
 };
 
 //delete borrow by id
